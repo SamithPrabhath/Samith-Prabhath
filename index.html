@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samith Prabhath Dissanayaka | Web Developer & Freelancer</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #11182d;
+      --panel: rgba(17, 24, 45, 0.78);
+      --panel-solid: #151d35;
+      --text: #edf2ff;
+      --muted: #9fb0d0;
+      --accent: #4fd1c5;
+      --accent-strong: #37bfb2;
+      --accent-soft: rgba(79, 209, 197, 0.14);
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      --radius: 20px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(79, 209, 197, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(91, 114, 247, 0.16), transparent 24%),
+        linear-gradient(180deg, #09101d 0%, #0b1020 55%, #0c1326 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 85%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 42px;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 24, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 76px;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 500;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      color: var(--text);
+    }
+
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 22px;
+      height: 2px;
+      margin: 5px auto;
+      background: currentColor;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hero {
+      padding: 120px 0 90px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.9rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 640px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-width: 154px;
+      padding: 0.95rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, border-color 0.28s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #78e9df);
+      color: #05111b;
+      box-shadow: 0 14px 30px rgba(79, 209, 197, 0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 640px;
+    }
+
+    .stat-card,
+    .glass-card,
+    .project-card,
+    .service-card,
+    .contact-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      border-radius: var(--radius);
+    }
+
+    .stat-card {
+      padding: 1.1rem 1rem;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -30% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 209, 197, 0.3) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-card h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card p {
+      margin-bottom: 1.6rem;
+      color: var(--muted);
+    }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .availability::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #42ffb1;
+      box-shadow: 0 0 0 6px rgba(66, 255, 177, 0.12);
+    }
+
+    .highlight-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .highlight-list li {
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.6rem;
+    }
+
+    .glass-card {
+      padding: 2rem;
+    }
+
+    .about-copy p + p {
+      margin-top: 1rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.4rem;
+    }
+
+    .skills-list li {
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #d9e2ff;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .skills-list li:hover {
+      transform: translateY(-3px);
+      border-color: rgba(79, 209, 197, 0.45);
+      background: rgba(79, 209, 197, 0.08);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-item {
+      padding: 1rem 1rem 1rem 1.15rem;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 0 16px 16px 0;
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .projects-grid,
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .project-card,
+    .service-card,
+    .contact-card {
+      padding: 1.7rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover,
+    .service-card:hover,
+    .contact-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(79, 209, 197, 0.32);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.28);
+    }
+
+    .project-tag,
+    .service-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3,
+    .service-card h3,
+    .contact-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card p,
+    .service-card p,
+    .contact-card p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-link {
+      color: var(--text);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: gap 0.25s ease, color 0.25s ease;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      gap: 0.75rem;
+    }
+
+    .service-list {
+      display: grid;
+      gap: 0.7rem;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .service-list li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 0.55rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.4rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-links a {
+      padding: 0.85rem 1rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .contact-links a:hover {
+      transform: translateY(-4px);
+      background: rgba(79, 209, 197, 0.08);
+      border-color: rgba(79, 209, 197, 0.32);
+    }
+
+    .contact-panel {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    footer {
+      padding: 24px 0 36px;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .projects-grid,
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero-card {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        background: rgba(11, 16, 32, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(calc(100% - 1.2rem), var(--max-width));
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home"><span>.</span>SPD<span>.</span></a>
+      <nav>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+          <span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div class="fade-in">
+          <div class="eyebrow">Portfolio Website</div>
+          <h1>Samith Prabhath <span>Dissanayaka</span></h1>
+          <p>
+            Web Developer &amp; Freelancer crafting fast, polished, and user-focused digital experiences for startups,
+            personal brands, and growing businesses.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View My Work</a>
+            <a class="btn btn-secondary" href="#contact">Let's Talk</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <strong>3+ Years</strong>
+              <span>Building responsive websites</span>
+            </div>
+            <div class="stat-card">
+              <strong>20+ Clients</strong>
+              <span>Freelance projects delivered</span>
+            </div>
+            <div class="stat-card">
+              <strong>100%</strong>
+              <span>Focus on clean user experience</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="glass-card hero-card fade-in">
+          <div class="hero-badge">Currently open for freelance work</div>
+          <h2>Building websites that feel premium and perform reliably.</h2>
+          <p>
+            I help businesses launch modern web experiences with thoughtful design, maintainable code, and a smooth development process from concept to deployment.
+          </p>
+          <div class="availability">Available for websites, landing pages, and front-end support</div>
+          <ul class="highlight-list">
+            <li>Custom personal and business websites with responsive layouts</li>
+            <li>Clean UI styling with reusable structure and performance in mind</li>
+            <li>Freelance-friendly communication, planning, and delivery</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="fade-in">
+          <h2 class="section-title">About Me</h2>
+          <p class="section-intro">
+            I design and build modern web interfaces that balance visual appeal, usability, and speed.
+            My goal is to turn ideas into practical digital products that leave a strong first impression.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="glass-card about-copy fade-in">
+            <p>
+              I'm Samith Prabhath Dissanayaka, a web developer and freelancer who enjoys transforming concepts into responsive, accessible, and engaging websites.
+              I work comfortably across the full front-end workflow, from planning the layout and user journey to writing clean code and refining interactions.
+            </p>
+            <p>
+              Whether it's a portfolio, business landing page, or client-facing product interface, I care about making each section purposeful, visually consistent, and easy to maintain.
+            </p>
+            <ul class="skills-list">
+              <li>HTML5</li>
+              <li>CSS3</li>
+              <li>JavaScript</li>
+              <li>Responsive Design</li>
+              <li>UI Design</li>
+              <li>Landing Pages</li>
+              <li>Website Optimization</li>
+              <li>Freelance Collaboration</li>
+            </ul>
+          </article>
+
+          <aside class="glass-card fade-in">
+            <h3>What I Bring</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <strong>Modern Front-End Development</strong>
+                <span>Structured, semantic code with a strong focus on responsiveness and smooth interaction.</span>
+              </div>
+              <div class="timeline-item">
+                <strong>Visual Consistency</strong>
+                <span>Layouts, spacing, and interface details that create a polished and professional experience.</span>
+              </div>
+              <div class="timeline-item">
+                <strong>Freelance Mindset</strong>
+                <span>Clear communication, dependable delivery, and solutions tailored to real client goals.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="fade-in">
+          <h2 class="section-title">Projects</h2>
+          <p class="section-intro">
+            A few sample projects that reflect the kind of modern, practical, and visually clean work I enjoy building.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card fade-in">
+            <div class="project-tag">Business Website</div>
+            <h3>Nova Studio Landing Page</h3>
+            <p>
+              A sleek marketing website for a creative agency with a strong hero section, service highlights, and conversion-focused call-to-actions.
+            </p>
+            <a class="project-link" href="#contact">Live Demo →</a>
+          </article>
+
+          <article class="project-card fade-in">
+            <div class="project-tag">Portfolio</div>
+            <h3>Photographer Showcase</h3>
+            <p>
+              A responsive portfolio experience designed to present visual work elegantly, with category sections and an immersive presentation style.
+            </p>
+            <a class="project-link" href="#contact">Live Demo →</a>
+          </article>
+
+          <article class="project-card fade-in">
+            <div class="project-tag">Freelance Project</div>
+            <h3>Local Brand Product Page</h3>
+            <p>
+              A product-focused single-page website built for a local business to highlight featured items, brand story, and contact details.
+            </p>
+            <a class="project-link" href="#contact">Live Demo →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="fade-in">
+          <h2 class="section-title">Services</h2>
+          <p class="section-intro">
+            I offer focused web services for individuals, startups, and businesses that want a strong and modern online presence.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card fade-in">
+            <div class="service-icon">Web Development</div>
+            <h3>Custom Website Development</h3>
+            <p>
+              Responsive websites built from the ground up with clean structure, modern styling, and smooth interactions across devices.
+            </p>
+            <ul class="service-list">
+              <li>Landing pages and portfolio websites</li>
+              <li>Mobile-friendly layouts</li>
+              <li>Performance-conscious implementation</li>
+            </ul>
+          </article>
+
+          <article class="service-card fade-in">
+            <div class="service-icon">Design</div>
+            <h3>UI &amp; Visual Design</h3>
+            <p>
+              Interface styling and visual layout direction that helps websites look polished, modern, and aligned with brand identity.
+            </p>
+            <ul class="service-list">
+              <li>Clean dark-themed interfaces</li>
+              <li>Consistent spacing and typography</li>
+              <li>Improved user flow and presentation</li>
+            </ul>
+          </article>
+
+          <article class="service-card fade-in">
+            <div class="service-icon">Freelancing</div>
+            <h3>Freelance Project Support</h3>
+            <p>
+              Reliable collaboration for client projects, redesigns, and quick turnarounds with clear communication throughout the process.
+            </p>
+            <ul class="service-list">
+              <li>Project-based website builds</li>
+              <li>Website refreshes and updates</li>
+              <li>Flexible support for small businesses</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="fade-in">
+          <h2 class="section-title">Contact</h2>
+          <p class="section-intro">
+            Have a project in mind or want to collaborate? I'm always open to discussing creative ideas, freelance opportunities, and web solutions.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card fade-in">
+            <h3>Let's build something great</h3>
+            <p>
+              If you're looking for a developer who values clean design, responsive layouts, and dependable execution, feel free to reach out.
+            </p>
+            <div class="contact-links">
+              <a href="mailto:samithprabhath22@gmail.com">Email Me</a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://https://www.facebook.com/SamithPrabhath/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+          </article>
+
+          <aside class="contact-card contact-panel fade-in">
+            <div class="contact-item">
+              <span>Email</span>
+              <a href="mailto:samithprabhath22@gmail.com">samithprabhath22@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span>Location</span>
+              <p>Sri Lanka - Available for remote freelance work</p>
+            </div>
+            <div class="contact-item">
+              <span>Response Time</span>
+              <p>Usually within 24 hours for project inquiries and collaboration requests.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Samith Prabhath Dissanayaka. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+    const fadeElements = document.querySelectorAll(".fade-in");
+
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    navAnchors.forEach((anchor) => {
+      anchor.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    fadeElements.forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
